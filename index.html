@@ -292,9 +292,6 @@
     </nav>
 
     <script>
-        const apiKey = "AIzaSyB-dqNnC_jGAUhOC0f16kqJJmWkTScZt68"; 
-        const model = "gemini-1.5-flash";
-        
         const state = {
             tafsirEnabled: false,
             sharhEnabled: false,
@@ -312,48 +309,31 @@
 
         const audio = document.getElementById('main-audio');
 
-        // التعديل الجوهري هنا لإصلاح مشكلة "فشل الاستنباط"
-        async function fetchAI(prompt, system, retries = 3) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-            
-            // دمج تعليمات النظام مع المدخلات لضمان الفهم عبر API المباشر
-            const fullPrompt = `التعليمات: ${system}\n\nالمطلوب: ${prompt}`;
-            
-            const payload = {
-                contents: [{
-                    parts: [{ text: fullPrompt }]
-                }],
-                generationConfig: {
-                    responseMimeType: "application/json",
-                    temperature: 0.7
+        /**
+         * دالة جلب البيانات من الذكاء الاصطناعي عبر Vercel API
+         * ملاحظة: تم حذف apiKey من هنا ليتم استخدامه في الـ Backend فقط لزيادة الأمان.
+         */
+        async function fetchAI(prompt, system) {
+            try {
+                const res = await fetch('/api/generate', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, system })
+                });
+
+                if (!res.ok) {
+                    const errorDetails = await res.json();
+                    throw new Error(errorDetails.error || "خطأ في الاتصال بالخادم");
                 }
-            };
-
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const res = await fetch(url, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!res.ok) throw new Error("API Error");
-
-                    const data = await res.json();
-                    
-                    // استخراج النص وتجربة تنظيفه من أي Markdown قد يضيفه النموذج
-                    let aiText = data.candidates[0].content.parts[0].text;
-                    aiText = aiText.replace(/```json|```/g, "").trim();
-                    
-                    return JSON.parse(aiText);
-                } catch (e) {
-                    console.error("Attempt failed:", i, e);
-                    if (i === retries - 1) throw e;
-                    await new Promise(r => setTimeout(r, 1500));
-                }
+                
+                return await res.json();
+            } catch (e) {
+                console.error("AI Error:", e);
+                throw e;
             }
         }
 
+        // --- Helper & UI Functions ---
         function closeInitialDisclaimer() { document.getElementById('initial-disclaimer').style.display = 'none'; }
         function toggleMinimize(m) { const player = document.getElementById('player'); if(m) player.classList.add('minimized'); else player.classList.remove('minimized'); }
         
@@ -378,6 +358,7 @@
             document.getElementById('r-afs').className = r === 'afs' ? "flex-1 py-3 rounded-xl text-xs font-bold bg-gold text-black transition-all" : "flex-1 py-3 rounded-xl text-xs font-bold text-white/50 transition-all";
         }
 
+        // --- Audio Controls ---
         function playFullSurah(num, name) {
             const sNum = num.toString().padStart(3, '0');
             const path = state.activeReader === 'shur' ? `https://server7.mp3quran.net/shur/${sNum}.mp3` : `https://server8.mp3quran.net/afs/${sNum}.mp3`;
@@ -406,6 +387,7 @@
         function onAudioEnded() { uiPlaying(false); document.querySelectorAll('.interactive-ayah').forEach(el => el.classList.remove('is-playing')); }
         document.getElementById('p-seek').oninput = (e) => audio.currentTime = e.target.value;
 
+        // --- Search & Library Logic ---
         async function searchQuran() {
             const q = document.getElementById('q-search-in').value.trim();
             const resView = document.getElementById('quran-res-view'), idxView = document.getElementById('quran-index-view');
@@ -455,6 +437,7 @@
             } catch(e) { resView.innerHTML = `<div class="p-10 text-center text-red-400">فشل جلب الأحاديث.</div>`; }
         }
 
+        // --- Radar Analysis (Inference) ---
         async function startRadarAnalysis(forcedQuery = null) {
             const q = forcedQuery || document.getElementById('ai-in').value.trim(); 
             if(!q) return;
@@ -472,6 +455,7 @@
             finally { load.classList.add('hidden'); btn.disabled = false; }
         }
 
+        // --- Adhan & Location Functions ---
         async function changeCity(f = null) {
             const city = f || document.getElementById('city-in').value.trim(); if(!city) return;
             try { const r = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`); const d = await r.json(); if(d.code === 200) renderPrayerTimes(d.data, city.toUpperCase()); } catch(e) { document.getElementById('header-loc').innerText = "خطأ في المدينة"; }
