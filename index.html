@@ -44,7 +44,6 @@
         .tab-content.active { display: block; animation: slideUp 0.4s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Ruling Styles - Strict Color Matching */
         .ruling-حرام { border: 2px solid var(--haram) !important; box-shadow: inset 0 0 20px rgba(255, 59, 59, 0.15); }
         .badge-حرام { background: var(--haram); color: white; font-weight: 900; }
         .ruling-حلال, .ruling-مباح { border: 2px solid var(--halal) !important; box-shadow: inset 0 0 20px rgba(0, 255, 136, 0.15); }
@@ -55,7 +54,6 @@
         .justification-box { border-right: 4px solid var(--justification-color); background: rgba(160, 210, 235, 0.08); color: var(--justification-color); }
         .evidence-box { border-right: 4px solid var(--evidence-color); background: rgba(226, 255, 193, 0.08); color: var(--evidence-color); }
 
-        /* Royal Islamic Gold Text for Titles and Buttons */
         .royal-gold-title {
             color: var(--gold);
             font-weight: 900;
@@ -76,7 +74,6 @@
             border-radius: 2rem;
         }
 
-        /* Enhanced Sticky Player Logic */
         .sticky-player { position: fixed; bottom: 85px; left: 12px; right: 12px; z-index: 1000; display: none; transition: all 0.5s ease-in-out; }
         .sticky-player.active { display: block; }
         .sticky-player.minimized { 
@@ -101,7 +98,6 @@
 </head>
 <body class="bg-black">
 
-    <!-- Initial Disclaimer -->
     <div id="initial-disclaimer" class="fixed inset-0 z-[5000] flex items-center justify-center p-6 bg-black/98 backdrop-blur-xl">
         <div class="glass-card max-w-md w-full p-8 text-center border-t-4 border-gold shadow-[0_0_60px_rgba(212,175,55,0.25)]">
             <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -121,7 +117,6 @@
         </div>
     </div>
 
-    <!-- Header -->
     <header class="p-4 sticky top-0 z-[100] glass-card !rounded-none !bg-black/95 border-b border-white/15 flex justify-between items-center">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center text-black shadow-lg"><i class="fa-solid fa-kaaba text-xl"></i></div>
@@ -137,8 +132,6 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-6 mb-44">
-        
-        <!-- Tab: HOME -->
         <section id="tab-home" class="tab-content active space-y-6">
             <div class="glass-card p-4 flex gap-2 border-gold/20 shadow-lg">
                 <input type="text" id="city-in" class="flex-1 p-3 rounded-xl text-sm placeholder-white/40" placeholder="ابحث عن مدينتك...">
@@ -186,7 +179,6 @@
             </div>
         </section>
 
-        <!-- Tab: QURAN -->
         <section id="tab-quran" class="tab-content space-y-4">
             <div class="glass-card p-4 sticky top-20 z-50 flex flex-col gap-3 border-gold/30">
                 <div class="flex items-center gap-3">
@@ -204,7 +196,6 @@
             <div id="quran-index-view" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
         </section>
 
-        <!-- Tab: AUDIO (Library) -->
         <section id="tab-audio" class="tab-content space-y-6">
             <div class="glass-card p-6 text-center">
                 <h2 class="text-xl font-black text-gold mb-6 uppercase tracking-widest royal-gold-title">المكتبة الصوتية</h2>
@@ -216,7 +207,6 @@
             </div>
         </section>
 
-        <!-- Tab: HADITH -->
         <section id="tab-hadith" class="tab-content space-y-6">
             <div class="glass-card p-4 sticky top-20 z-50 flex flex-col gap-3 border-gold/30">
                 <div class="flex items-center gap-3">
@@ -239,7 +229,6 @@
             </div>
         </section>
 
-        <!-- Tab: INFERENCE (الاستنباط الفقهي) -->
         <section id="tab-radar" class="tab-content space-y-6">
             <div class="glass-card p-10 text-center bg-gradient-to-b from-neutral-900 to-transparent border-t-2 border-gold/40 shadow-2xl">
                 <h2 class="text-2xl font-black text-gold mb-3 uppercase tracking-tighter royal-gold-title">الاستنباط الفقهي</h2>
@@ -251,18 +240,14 @@
             <div id="radar-loading" class="hidden py-10 text-center"><i class="fa-solid fa-spinner fa-spin text-3xl text-gold"></i></div>
             <div id="radar-res" class="space-y-8"></div>
         </section>
-
     </main>
 
-    <!-- Global Player UI -->
     <div id="player" class="sticky-player glass-card overflow-visible">
-        <!-- Full View -->
         <div class="player-full-view p-5 shadow-2xl border-t border-gold/50 relative">
             <div class="flex justify-between items-start mb-4">
                 <button onclick="toggleMinimize(true)" class="w-8 h-8 bg-gold text-black rounded-full flex items-center justify-center shadow-lg border-2 border-black active:scale-90"><i class="fa-solid fa-chevron-down"></i></button>
                 <button onclick="closePlayer()" class="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-black active:scale-90"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
             <div class="flex items-center gap-3 overflow-hidden mb-4">
                 <div class="w-12 h-12 bg-gold rounded-xl flex items-center justify-center text-black shadow-lg" id="p-ico"><i class="fa-solid fa-microphone-lines text-xl"></i></div>
                 <div class="overflow-hidden text-right">
@@ -270,30 +255,24 @@
                     <p id="p-subtitle" class="text-[9px] text-gold font-bold uppercase tracking-widest">تلاوة جارية</p>
                 </div>
             </div>
-            
             <div class="flex items-center gap-4 px-2">
                 <span id="p-curr" class="text-[10px] font-mono text-white/70">0:00</span>
                 <input type="range" id="p-seek" class="flex-1 accent-gold h-1 bg-white/20 rounded-full" value="0">
                 <span id="p-dur" class="text-[10px] font-mono text-white/70">0:00</span>
             </div>
-            
             <div class="flex items-center justify-center gap-10 mt-5">
                 <button onclick="pSeek(-10)" class="text-white/60 hover:text-gold transition-colors text-xl"><i class="fa-solid fa-rotate-left"></i></button>
                 <button onclick="toggleAudio()" class="w-16 h-16 bg-gold text-black rounded-full flex items-center justify-center shadow-xl active:scale-90 transition-all border-4 border-black/20"><i id="p-btn-ico" class="fa-solid fa-play text-2xl"></i></button>
                 <button onclick="pSeek(10)" class="text-white/60 hover:text-gold transition-colors text-xl"><i class="fa-solid fa-rotate-right"></i></button>
             </div>
         </div>
-        
-        <!-- Mini View -->
         <div class="player-mini-view" onclick="toggleMinimize(false)">
             <button onclick="event.stopPropagation(); closePlayer();" class="absolute -top-2 -left-2 w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center text-[10px] border border-black z-50"><i class="fa-solid fa-x"></i></button>
             <i class="fa-solid fa-waveform animate-pulse text-2xl"></i>
         </div>
-
         <audio id="main-audio" onended="onAudioEnded()" ontimeupdate="onTimeUpdate()" onplay="uiPlaying(true)" onpause="uiPlaying(false)"></audio>
     </div>
 
-    <!-- Modal System -->
     <div id="main-modal" class="fixed inset-0 z-[2000] hidden items-center justify-center bg-black/98 p-4 backdrop-blur-xl">
         <div class="glass-card w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
             <div class="p-6 border-b border-white/15 flex justify-between items-center sticky top-0 bg-black/70 z-10">
@@ -304,7 +283,6 @@
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 glass-card !rounded-none border-t border-white/15 p-4 flex justify-around items-center z-[1000] bg-black/98 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
         <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 active"><i class="fa-solid fa-house-chimney text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">الرئيسية</span></button>
         <button onclick="switchTab('quran')" id="nav-quran" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-book-open text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">المصحف</span></button>
@@ -334,14 +312,45 @@
 
         const audio = document.getElementById('main-audio');
 
-        async function fetchAI(prompt, system, retries = 5) {
-           const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        // التعديل الجوهري هنا لإصلاح مشكلة "فشل الاستنباط"
+        async function fetchAI(prompt, system, retries = 3) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            
+            // دمج تعليمات النظام مع المدخلات لضمان الفهم عبر API المباشر
+            const fullPrompt = `التعليمات: ${system}\n\nالمطلوب: ${prompt}`;
+            
+            const payload = {
+                contents: [{
+                    parts: [{ text: fullPrompt }]
+                }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    temperature: 0.7
+                }
+            };
+
             for (let i = 0; i < retries; i++) {
                 try {
-                    const res = await fetch(url, { method: "POST", body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], systemInstruction: { parts: [{ text: system }] }, generationConfig: { responseMimeType: "application/json" } }) });
+                    const res = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!res.ok) throw new Error("API Error");
+
                     const data = await res.json();
-                    return JSON.parse(data.candidates[0].content.parts[0].text);
-                } catch (e) { if (i === retries - 1) throw e; await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000)); }
+                    
+                    // استخراج النص وتجربة تنظيفه من أي Markdown قد يضيفه النموذج
+                    let aiText = data.candidates[0].content.parts[0].text;
+                    aiText = aiText.replace(/```json|```/g, "").trim();
+                    
+                    return JSON.parse(aiText);
+                } catch (e) {
+                    console.error("Attempt failed:", i, e);
+                    if (i === retries - 1) throw e;
+                    await new Promise(r => setTimeout(r, 1500));
+                }
             }
         }
 
@@ -451,22 +460,15 @@
             if(!q) return;
             const resBox = document.getElementById('radar-res'); const load = document.getElementById('radar-loading'); const btn = document.getElementById('radar-btn');
             resBox.innerHTML = ""; load.classList.remove('hidden'); btn.disabled = true;
-            const systemPrompt = `أنت مساعد فقهي وأدبي ملكي دقيق جداً.
-            1. إذا كان المدخل نصاً أدبياً أو شعراً، يجب عليك تحري الدقة القصوى في "القائل" والمصدر. 
-               - مثال: "وإذا بليت بظالم كن ظالما..." هو لـ "عنترة بن شداد" وليس للمتنبي.
-               - إذا لم تكن متأكداً بنسبة 100% من القائل، قل "القائل: غير مؤكد" أو "منسوب لعدة شعراء".
-            2. تنسيق الرد الأدبي (literary): وضح القائل، المصدر، الشرح، ثم اقترح الاستنباط.
-            3. تنسيق الرد الفقهي (religious): حلل 3-5 أوجه فقهية مع "القول الراجح" والتعليل والأدلة.
-            التنسيق مطلوب بصيغة JSON حصراً:
-            {"type": "literary" | "religious", "literary_data": { "author", "source", "explanation", "suggestion_text" }, "religious_data": { "title", "perspectives": [{"name", "ruling", "text", "colorType"}], "preferred": {"opinion", "justification", "evidence"} }}`;
+            const systemPrompt = `أنت مساعد فقهي وأدبي ملكي دقيق جداً. 1. إذا كان المدخل نصاً أدبياً، وضح القائل والمصدر. 2. إذا كان فقهياً، حلل 3-5 أوجه فقهية مع "القول الراجح". التنسيق JSON حصراً: {"type": "literary" | "religious", "literary_data": { "author", "source", "explanation", "suggestion_text" }, "religious_data": { "title", "perspectives": [{"name", "ruling", "text", "colorType"}], "preferred": {"opinion", "justification", "evidence"} }}`;
             try {
                 const data = await fetchAI(`حلل بدقة عالية: "${q}"`, systemPrompt);
                 if (data.type === 'literary') {
-                    resBox.innerHTML = `<div class="glass-card p-8 border-gold/40 shadow-xl"><h3 class="royal-gold-title text-center text-xl mb-6 border-b border-gold/20 pb-4">توثيق النص الأدبي</h3><div class="space-y-6 text-right"><div><span class="text-gold font-black">القائل الموثق:</span> <span class="text-white font-bold">${data.literary_data.author}</span></div><div><span class="text-gold font-black">المصدر (الديوان):</span> <span class="text-white italic">${data.literary_data.source}</span></div><div class="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-inner"><p class="text-sm leading-relaxed text-white/90">${data.literary_data.explanation}</p></div><div class="mt-10 p-6 border-2 border-gold/30 rounded-2xl bg-gold/5 text-center"><p class="text-gold font-black mb-6 italic text-md">"${data.literary_data.suggestion_text}"</p><button onclick="startRadarAnalysis('استنبط الحكم الشرعي لهذا المعنى: ${q}')" class="w-full py-4 gold-btn rounded-xl active:scale-95 transition-all text-sm uppercase tracking-widest">بدء الاستنباط مع الأدلة</button></div></div></div>`;
+                    resBox.innerHTML = `<div class="glass-card p-8 border-gold/40 shadow-xl"><h3 class="royal-gold-title text-center text-xl mb-6 border-b border-gold/20 pb-4">توثيق النص الأدبي</h3><div class="space-y-6 text-right"><div><span class="text-gold font-black">القائل:</span> <span class="text-white font-bold">${data.literary_data.author}</span></div><div><span class="text-gold font-black">المصدر:</span> <span class="text-white italic">${data.literary_data.source}</span></div><div class="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-inner"><p class="text-sm leading-relaxed text-white/90">${data.literary_data.explanation}</p></div><div class="mt-10 p-6 border-2 border-gold/30 rounded-2xl bg-gold/5 text-center"><p class="text-gold font-black mb-6 italic text-md">"${data.literary_data.suggestion_text}"</p><button onclick="startRadarAnalysis('استنبط الحكم الشرعي لهذا المعنى: ${q}')" class="w-full py-4 gold-btn rounded-xl active:scale-95 transition-all text-sm uppercase tracking-widest">بدء الاستنباط مع الأدلة</button></div></div></div>`;
                 } else {
                     resBox.innerHTML = `<div class="space-y-6"><h3 class="text-sm font-black text-gold text-center uppercase tracking-widest bg-gold/10 py-3 rounded-xl border border-gold/30">${data.religious_data.title}</h3>${data.religious_data.perspectives.map(p => `<div class="glass-card p-6 ruling-${p.ruling || p.colorType} shadow-2xl"><div class="flex justify-between items-center mb-5"><span class="text-[11px] font-black text-white/80 uppercase tracking-wider">${p.name}</span><div class="flex items-center gap-2 px-4 py-2 rounded-full badge-${p.ruling || p.colorType}"><i class="fa-solid ${p.ruling === 'حرام' ? 'fa-ban' : 'fa-circle-check'}"></i><span class="text-[12px] font-black">${p.ruling}</span></div></div><p class="text-sm leading-relaxed text-right text-white font-medium">${p.text}</p></div>`).join('')}<div class="preferred-box p-8 shadow-[0_0_40px_rgba(212,175,55,0.15)]"><div class="flex items-center gap-4 mb-4"><div class="w-10 h-10 rounded-2xl bg-gold/20 flex items-center justify-center text-gold shadow-lg"><i class="fa-solid fa-gavel"></i></div><h4 class="royal-gold-title uppercase">الخلاصة والقول الراجح</h4></div><div class="border-b border-white/10 mb-6 text-white font-bold text-xl text-center pb-4">${data.religious_data.preferred.opinion}</div><div class="p-6 justification-box rounded-2xl mb-6 shadow-inner"><p class="text-[11px] font-black uppercase tracking-widest mb-2 text-gold">التعليل العلمي:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.justification}</p></div><div class="p-6 evidence-box rounded-2xl shadow-inner"><p class="text-[11px] font-black uppercase tracking-widest mb-2 text-gold">الدليل الموثق:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.evidence}</p></div></div></div>`;
                 }
-            } catch(e) { resBox.innerHTML = `<div class="p-10 text-center text-red-400 font-bold">فشل التحليل، يرجى المحاولة.</div>`; }
+            } catch(e) { resBox.innerHTML = `<div class="p-10 text-center text-red-400 font-bold">فشل التحليل، يرجى المحاولة لاحقاً.</div>`; }
             finally { load.classList.add('hidden'); btn.disabled = false; }
         }
 
@@ -533,8 +535,18 @@
         function debounceHadithSearch() { clearTimeout(window.ht); window.ht = setTimeout(searchHadithProcess, 800); }
         function showModal(title, content) { document.getElementById('modal-title').innerText = title; document.getElementById('modal-content').innerHTML = content; document.getElementById('main-modal').classList.replace('hidden', 'flex'); }
         function closeModal() { document.getElementById('main-modal').classList.replace('flex', 'hidden'); }
+        
         window.onload = () => { initLocation(); initBooks(); initDailyAyah(); };
-        function initLocation() { navigator.geolocation.getCurrentPosition(async (pos) => { const r = await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&method=4`); const d = await r.json(); renderPrayerTimes(d.data, "موقعك التلقائي"); }, () => { changeCity("Makkah"); }); }
+        
+        function initLocation() { 
+            navigator.geolocation.getCurrentPosition(async (pos) => { 
+                const r = await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&method=4`); 
+                const d = await r.json(); 
+                renderPrayerTimes(d.data, "موقعك الحالي"); 
+            }, () => { 
+                changeCity("Makkah"); 
+            }); 
+        }
     </script>
 </body>
 </html>
