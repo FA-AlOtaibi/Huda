@@ -18,7 +18,7 @@ export default async function handler(req, res) {
                     { role: "system", content: system + " Ensure your entire response is a single valid JSON object." },
                     { role: "user", content: prompt }
                 ],
-                temperature: 0.5
+                temperature: 0.2
             })
         });
 
