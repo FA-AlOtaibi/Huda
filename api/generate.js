@@ -12,12 +12,13 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "llama3-70b-8192", 
+                // تم التحديث إلى الموديل الجديد والمدعوم
+                model: "llama-3.3-70b-versatile", 
                 messages: [
                     { role: "system", content: system + " Ensure your entire response is a single valid JSON object." },
                     { role: "user", content: prompt }
                 ],
-                temperature: 0.5 // تقليل الدرجة لزيادة الدقة في التنسيق
+                temperature: 0.5
             })
         });
 
@@ -26,7 +27,6 @@ export default async function handler(req, res) {
         if (data.choices && data.choices[0].message) {
             let aiText = data.choices[0].message.content.trim();
             
-            // استخراج الـ JSON من بين أي نصوص إضافية
             const start = aiText.indexOf('{');
             const end = aiText.lastIndexOf('}');
             if (start !== -1 && end !== -1) {
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
             return res.status(200).json(JSON.parse(aiText));
         } else {
             console.error("Groq Raw Data:", data);
-            throw new Error("Invalid structure");
+            throw new Error("Invalid structure or API error");
         }
     } catch (error) {
         console.error("Server Error:", error);
