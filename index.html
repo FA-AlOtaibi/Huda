@@ -443,7 +443,19 @@
             if(!q) return;
             const resBox = document.getElementById('radar-res'); const load = document.getElementById('radar-loading'); const btn = document.getElementById('radar-btn');
             resBox.innerHTML = ""; load.classList.remove('hidden'); btn.disabled = true;
-            const systemPrompt = `أنت مساعد فقهي وأدبي ملكي دقيق جداً. 1. إذا كان المدخل نصاً أدبياً، وضح القائل والمصدر. 2. إذا كان فقهياً، حلل 3-5 أوجه فقهية مع "القول الراجح". التنسيق JSON حصراً: {"type": "literary" | "religious", "literary_data": { "author", "source", "explanation", "suggestion_text" }, "religious_data": { "title", "perspectives": [{"name", "ruling", "text", "colorType"}], "preferred": {"opinion", "justification", "evidence"} }}`;
+           const systemPrompt = `أنت عالم محقق وفقيه لغوي خبير. مهمتك تحليل النص المقدم بناءً على المعايير التالية:
+1. إذا كان النص فقهياً: يجب ذكر (3-5) أوجه فقهية مستقاة من المذاهب الأربعة، مع تفصيل دليل كل مذهب من الكتاب والسنة والقواعد الأصولية. ثم تحديد "القول الراجح" بناءً على قوة الدليل ومقاصد الشريعة، مع تعليل الترجيح ببرهان علمي.
+2. إذا كان النص أدبياً: يجب توثيق القائل بدقة وعصره الأدبي والمصدر الأصلي (الديوان)، مع شرح بلاغي للنص.
+3. التنسيق إلزامي بصيغة JSON حصراً بهذا الهيكل:
+{
+  "type": "literary" | "religious",
+  "literary_data": { "author": "القائل", "source": "المصدر", "explanation": "الشرح البلاغي", "suggestion_text": "استنباط حكم من المعنى" },
+  "religious_data": { 
+    "title": "عنوان المسألة", 
+    "perspectives": [{"name": "اسم المذهب/الرأي", "ruling": "حلال/حرام/مكروه", "text": "تفصيل الرأي مع أدلته وبراهينه", "colorType": "حلال/حرام/مكروه"}],
+    "preferred": {"opinion": "القول الراجح المختار", "justification": "التعليل العلمي للترجيح", "evidence": "الدليل القاطع المرجح"}
+  }
+}`;
             try {
                 const data = await fetchAI(`حلل بدقة عالية: "${q}"`, systemPrompt);
                 if (data.type === 'literary') {
