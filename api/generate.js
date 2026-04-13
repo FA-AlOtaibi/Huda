@@ -1,11 +1,10 @@
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    const { prompt, system } = req.body;
-    // المفتاح الذي ستحصل عليه من Groq Console
-    const apiKey = process.env.GROQ_API_KEY; 
-
     try {
+        const { prompt, system } = req.body;
+        const apiKey = process.env.GROQ_API_KEY; 
+
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -13,28 +12,34 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                // سنستخدم Llama 3 70B لأنه الأقوى في التحليل الفقهي والأدبي
                 model: "llama3-70b-8192", 
                 messages: [
-                    { role: "system", content: system },
+                    { role: "system", content: system + " Ensure your entire response is a single valid JSON object." },
                     { role: "user", content: prompt }
                 ],
-                // إجبار النموذج على الرد بصيغة JSON
-                response_format: { type: "json_object" },
-                temperature: 0.7
+                temperature: 0.5 // تقليل الدرجة لزيادة الدقة في التنسيق
             })
         });
 
         const data = await response.json();
         
-        if (data.choices && data.choices[0].message.content) {
-            const aiResponse = JSON.parse(data.choices[0].message.content);
-            return res.status(200).json(aiResponse);
+        if (data.choices && data.choices[0].message) {
+            let aiText = data.choices[0].message.content.trim();
+            
+            // استخراج الـ JSON من بين أي نصوص إضافية
+            const start = aiText.indexOf('{');
+            const end = aiText.lastIndexOf('}');
+            if (start !== -1 && end !== -1) {
+                aiText = aiText.substring(start, end + 1);
+            }
+
+            return res.status(200).json(JSON.parse(aiText));
         } else {
-            throw new Error("Invalid response from Groq");
+            console.error("Groq Raw Data:", data);
+            throw new Error("Invalid structure");
         }
     } catch (error) {
-        console.error("Groq Error:", error);
-        res.status(500).json({ error: "فشل الاستنباط عبر محرك Groq" });
+        console.error("Server Error:", error);
+        res.status(500).json({ error: "فشل في معالجة الاستنباط" });
     }
 }
