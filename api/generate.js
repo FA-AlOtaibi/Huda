@@ -1,45 +1,29 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+    if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
+    const { prompt, system } = req.body;
+    
     try {
-        const { prompt, system } = req.body;
-        const apiKey = process.env.GROQ_API_KEY; 
-
         const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
             headers: {
-                "Authorization": `Bearer ${apiKey}`,
+                "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                // تم التحديث إلى الموديل الجديد والمدعوم
-                model: "llama-3.3-70b-versatile", 
+                model: "llama-3.3-70b-versatile",
                 messages: [
-                    { role: "system", content: system + " Ensure your entire response is a single valid JSON object." },
+                    { role: "system", content: system + "\nIMPORTANT: Never invent a Hadith. If you don't find a direct text in Bukhari, Muslim or famous Fiqh books, state that clearly." },
                     { role: "user", content: prompt }
                 ],
-                temperature: 0.2
+                temperature: 0, // صفر يعني دقة قصوى وعدم تأليف
+                response_format: { type: "json_object" }
             })
         });
 
         const data = await response.json();
-        
-        if (data.choices && data.choices[0].message) {
-            let aiText = data.choices[0].message.content.trim();
-            
-            const start = aiText.indexOf('{');
-            const end = aiText.lastIndexOf('}');
-            if (start !== -1 && end !== -1) {
-                aiText = aiText.substring(start, end + 1);
-            }
-
-            return res.status(200).json(JSON.parse(aiText));
-        } else {
-            console.error("Groq Raw Data:", data);
-            throw new Error("Invalid structure or API error");
-        }
+        res.status(200).json(JSON.parse(data.choices[0].message.content));
     } catch (error) {
-        console.error("Server Error:", error);
-        res.status(500).json({ error: "فشل في معالجة الاستنباط" });
+        res.status(500).json({ error: "خطأ في الخادم" });
     }
 }
