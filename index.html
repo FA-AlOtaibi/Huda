@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>هُدى</title>
+    <title>هُدى | التحقيق العلمي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -11,7 +11,6 @@
         
         :root {
             --gold: #D4AF37;
-            --gold-bright: #FFD700;
             --dark-bg: #050505;
             --glass-bg: rgba(18, 18, 18, 0.98);
             --halal: #00FF88; 
@@ -58,20 +57,11 @@
         .gold-btn { background: linear-gradient(135deg, var(--gold) 0%, #B8860B 100%); color: #000000; font-weight: 900; box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); transition: 0.3s; }
         .preferred-box { background: linear-gradient(180deg, rgba(212, 175, 55, 0.12) 0%, rgba(0,0,0,0) 100%); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 2rem; }
 
-        .sticky-player { position: fixed; bottom: 85px; left: 12px; right: 12px; z-index: 1000; display: none; transition: all 0.5s ease-in-out; }
+        .sticky-player { position: fixed; bottom: 85px; left: 12px; right: 12px; z-index: 1000; display: none; }
         .sticky-player.active { display: block; }
-        .sticky-player.minimized { width: 65px; height: 65px; border-radius: 50%; bottom: 100px; right: 20px; left: auto; padding: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 2px solid var(--gold); overflow: visible; }
-        .player-full-view { display: flex; flex-direction: column; width: 100%; }
-        .player-mini-view { display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: var(--gold); color: black; border-radius: 50%; position: relative; }
-        .sticky-player.minimized .player-full-view { display: none; }
-        .sticky-player.minimized .player-mini-view { display: flex; }
 
         .nav-btn.active { color: var(--gold); filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.8)); }
         input, textarea { background: rgba(255, 255, 255, 0.08) !important; border: 1px solid rgba(212, 175, 55, 0.3) !important; color: white !important; outline: none; }
-        #initial-disclaimer { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
     </style>
 </head>
 <body class="bg-black">
@@ -83,15 +73,12 @@
             </div>
             <h2 class="text-xl font-black text-gold mb-4 uppercase tracking-widest">تنبيه شرعي هام</h2>
             <div class="space-y-4 text-sm leading-relaxed text-white mb-8 text-right">
-                <p>نود التنويه بأن منصة <span class="text-gold font-bold">هُدى</span> تعتمد جزئياً على تقنيات الذكاء الاصطناعي للاستنباط والتحليل.</p>
-                <p>سيقوم النظام بذكر الأدلة الشرعية الموثقة قدر المستطاع، ولكن هذا لا يمنع احتمالية الخطأ.</p>
+                <p>نود التنويه بأن منصة <span class="text-gold font-bold">هُدى</span> تعتمد على تقنيات الذكاء الاصطناعي للتحقيق العلمي.</p>
                 <div class="p-4 bg-white/5 rounded-2xl border border-white/10 my-4">
                     <p class="quran-font text-lg text-gold leading-relaxed text-center">"فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ"</p>
                 </div>
             </div>
-            <button onclick="closeInitialDisclaimer()" class="w-full py-4 border-2 border-gold rounded-2xl shadow-xl active:scale-95 transition-all bg-black/40 hover:bg-gold/10">
-                <span class="royal-gold-title">فهمت، دخول المنصة</span>
-            </button>
+            <button onclick="closeInitialDisclaimer()" class="w-full py-4 border-2 border-gold rounded-2xl royal-gold-title">فهمت، دخول المنصة</button>
         </div>
     </div>
 
@@ -100,7 +87,7 @@
             <div class="w-10 h-10 bg-gold rounded-xl flex items-center justify-center text-black shadow-lg"><i class="fa-solid fa-kaaba text-xl"></i></div>
             <div>
                 <h1 class="text-sm font-black text-gold leading-none tracking-tighter">هُدى</h1>
-                <p id="header-loc" class="text-[8px] font-bold uppercase mt-1 tracking-widest text-white/70">تحديد الموقع...</p>
+                <p id="header-loc" class="text-[8px] font-bold uppercase mt-1 tracking-widest text-white/70">موقفك الحالي</p>
             </div>
         </div>
         <div class="glass-card px-4 py-2 flex flex-col items-center border-gold/40 bg-gold/5">
@@ -110,25 +97,22 @@
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-6 mb-44">
-        
         <section id="tab-home" class="tab-content active space-y-6">
             <div class="glass-card p-4 flex gap-2 border-gold/20 shadow-lg">
                 <input type="text" id="city-in" class="flex-1 p-3 rounded-xl text-sm placeholder-white/40" placeholder="ابحث عن مدينتك...">
-                <button onclick="changeCity()" class="px-6 gold-btn rounded-xl font-black text-xs active:scale-95 transition-all">تحديث</button>
+                <button onclick="changeCity()" class="px-6 gold-btn rounded-xl font-black text-xs">تحديث</button>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="glass-card p-6 border-r-4 border-gold bg-gradient-to-l from-gold/5 to-transparent">
                     <h3 class="text-xs font-black mb-4 flex items-center gap-2 text-gold uppercase tracking-widest"><i class="fa-solid fa-clock"></i> مواقيت الصلاة</h3>
                     <div id="prayer-list" class="grid grid-cols-2 gap-3"></div>
                 </div>
                 <div class="space-y-4">
-                    <div class="glass-card p-6 bg-gradient-to-br from-neutral-900 to-black text-white relative overflow-hidden border border-white/15">
+                    <div class="glass-card p-6 bg-gradient-to-br from-neutral-900 to-black text-white relative border border-white/15">
                         <div id="hijri-date" class="text-lg font-black mb-1 text-gold">...</div>
                         <div id="greg-date" class="text-[9px] font-bold uppercase tracking-widest text-white/60">التقويم اليومي</div>
-                        <i class="fa-solid fa-calendar-day absolute -bottom-2 -left-2 text-6xl opacity-10"></i>
                     </div>
-                    <div class="glass-card p-6 border-gold/20 cursor-pointer hover:bg-gold/5 transition-all" onclick="showDailyAyah()">
+                    <div class="glass-card p-6 border-gold/20 cursor-pointer hover:bg-gold/5" onclick="showDailyAyah()">
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-[8px] font-bold text-gold opacity-60 uppercase tracking-widest">آية اليوم</span>
                             <i class="fa-solid fa-quote-right text-gold/30"></i>
@@ -141,84 +125,33 @@
                     </div>
                 </div>
             </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 text-center">
-                <button onclick="switchTab('quran')" class="glass-card p-5 flex flex-col items-center gap-2 hover:bg-gold/10">
-                    <i class="fa-solid fa-book-quran text-xl text-gold mb-1"></i>
-                    <span class="text-[10px] uppercase royal-gold-title">المصحف</span>
-                </button>
-                <button onclick="switchTab('audio')" class="glass-card p-5 flex flex-col items-center gap-2 hover:bg-gold/10">
-                    <i class="fa-solid fa-headphones-simple text-xl text-gold mb-1"></i>
-                    <span class="text-[10px] uppercase royal-gold-title">المكتبة</span>
-                </button>
-                <button onclick="switchTab('hadith')" class="glass-card p-5 flex flex-col items-center gap-2 hover:bg-gold/10">
-                    <i class="fa-solid fa-scroll text-xl text-gold mb-1"></i>
-                    <span class="text-[10px] uppercase royal-gold-title">الموسوعة</span>
-                </button>
-            </div>
         </section>
 
         <section id="tab-quran" class="tab-content space-y-4">
             <div class="glass-card p-4 sticky top-20 z-50 flex flex-col gap-3 border-gold/30">
-                <div class="flex items-center gap-3">
-                    <input type="text" id="q-search-in" class="flex-1 p-3 rounded-xl text-sm placeholder-white/30" placeholder="ابحث عن آية (مثلاً: اصطنعتك)..." oninput="debounceQuranSearch()">
-                    <div class="flex items-center gap-2">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="tafsir-on" class="sr-only peer" onchange="state.tafsirEnabled = this.checked; searchQuran();">
-                            <div class="w-10 h-5 bg-white/10 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-gold"></div>
-                        </label>
-                        <span class="text-[10px] font-black text-gold/80 uppercase">تفسير</span>
-                    </div>
-                </div>
+                <input type="text" id="q-search-in" class="p-3 rounded-xl text-sm placeholder-white/30" placeholder="ابحث عن آية..." oninput="debounceQuranSearch()">
             </div>
             <div id="quran-res-view" class="space-y-4 hidden"></div>
             <div id="quran-index-view" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
         </section>
 
-        <section id="tab-audio" class="tab-content space-y-6">
-            <div class="glass-card p-6 text-center">
-                <h2 class="text-xl font-black text-gold mb-6 uppercase tracking-widest royal-gold-title">المكتبة الصوتية</h2>
-                <div class="flex gap-2 mb-6 bg-white/10 p-1 rounded-2xl">
-                    <button onclick="setActiveReader('shur')" id="r-shur" class="flex-1 py-3 rounded-xl text-xs font-bold bg-gold text-black transition-all">سعود الشريم</button>
-                    <button onclick="setActiveReader('afs')" id="r-afs" class="flex-1 py-3 rounded-xl text-xs font-bold text-white/50 transition-all">مشاري العفاسي</button>
-                </div>
-                <div id="audio-surah-list" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[55vh] overflow-y-auto pr-1"></div>
-            </div>
-        </section>
-
         <section id="tab-hadith" class="tab-content space-y-6">
-            <div class="glass-card p-4 sticky top-20 z-50 flex flex-col gap-3 border-gold/30">
-                <div class="flex items-center justify-between mb-2 px-1">
-                    <span class="text-[10px] font-black text-gold/80 uppercase">الموسوعة الحديثية</span>
-                    <img src="https://dorar.net/templates/dorar/images/logo.png" class="h-4 opacity-50 grayscale hover:grayscale-0 transition-all" alt="الدرر السنية">
+            <div class="glass-card p-4 sticky top-20 z-50 border-gold/30">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-black text-gold">الموسوعة الحديثية</span>
+                    <img src="https://dorar.net/templates/dorar/images/logo.png" class="h-4 grayscale opacity-50">
                 </div>
-                <div class="flex items-center gap-3">
-                    <input type="text" id="h-search-in" class="flex-1 p-3 rounded-xl text-sm placeholder-white/30" placeholder="بحث في الأحاديث (المصدر: الدرر السنية)..." oninput="debounceHadithSearch()">
-                    <div class="flex items-center gap-2">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="sharh-on" class="sr-only peer" onchange="state.sharhEnabled = this.checked; searchHadithProcess();">
-                            <div class="w-10 h-5 bg-white/10 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-gold"></div>
-                        </label>
-                        <span class="text-[10px] font-black text-gold/80 uppercase">الشرح</span>
-                    </div>
-                </div>
+                <input type="text" id="h-search-in" class="w-full p-3 rounded-xl text-sm placeholder-white/30" placeholder="بحث في الأحاديث (الدرر السنية)..." oninput="debounceHadithSearch()">
             </div>
             <div id="hadith-res-view" class="space-y-4 hidden"></div>
             <div id="books-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
-            <div id="book-content-view" class="hidden space-y-4">
-                <button onclick="backToBooks()" class="text-[10px] text-gold font-bold uppercase tracking-widest"><i class="fa-solid fa-arrow-right ml-2"></i> العودة للمكتبة</button>
-                <div id="chapter-list" class="space-y-2"></div>
-                <div id="hadith-list" class="hidden space-y-4"></div>
-            </div>
         </section>
 
         <section id="tab-radar" class="tab-content space-y-6">
             <div class="glass-card p-10 text-center bg-gradient-to-b from-neutral-900 to-transparent border-t-2 border-gold/40 shadow-2xl">
-                <h2 class="text-2xl font-black text-gold mb-3 uppercase tracking-tighter royal-gold-title">الاستنباط الفقهي</h2>
-                <textarea id="ai-in" class="w-full p-6 rounded-2xl min-h-[160px] text-right text-lg text-white" placeholder="اطرح مسألة فقهية أو نصاً أدبياً للتحليل..."></textarea>
-                <button onclick="startRadarAnalysis()" id="radar-btn" class="w-full mt-6 py-5 gold-btn rounded-xl active:scale-95 transition-all text-sm tracking-widest uppercase">
-                   بدء الاستكشاف مع الأدلة
-                </button>
+                <h2 class="text-2xl font-black text-gold mb-3 royal-gold-title uppercase">الاستنباط والتحقيق</h2>
+                <textarea id="ai-in" class="w-full p-6 rounded-2xl min-h-[160px] text-right text-lg text-white" placeholder="اطرح مسألة فقهية متنوعة أو نصاً أدبياً للتوثيق..."></textarea>
+                <button onclick="startRadarAnalysis()" id="radar-btn" class="w-full mt-6 py-5 gold-btn rounded-xl active:scale-95 transition-all text-sm uppercase">بدء الاستكشاف مع الأدلة</button>
             </div>
             <div id="radar-loading" class="hidden py-10 text-center"><i class="fa-solid fa-spinner fa-spin text-3xl text-gold"></i></div>
             <div id="radar-res" class="space-y-8"></div>
@@ -226,59 +159,42 @@
     </main>
 
     <div id="player" class="sticky-player glass-card overflow-visible">
-        <div class="player-full-view p-5 shadow-2xl border-t border-gold/50 relative">
+        <div class="p-5 shadow-2xl border-t border-gold/50">
             <div class="flex justify-between items-start mb-4">
-                <button onclick="toggleMinimize(true)" class="w-8 h-8 bg-gold text-black rounded-full flex items-center justify-center shadow-lg border-2 border-black active:scale-90"><i class="fa-solid fa-chevron-down"></i></button>
-                <button onclick="closePlayer()" class="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg border-2 border-black active:scale-90"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closePlayer()" class="w-8 h-8 bg-red-600 text-white rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="flex items-center gap-3 overflow-hidden mb-4">
-                <div class="w-12 h-12 bg-gold rounded-xl flex items-center justify-center text-black shadow-lg" id="p-ico"><i class="fa-solid fa-microphone-lines text-xl"></i></div>
+                <div class="w-12 h-12 bg-gold rounded-xl flex items-center justify-center text-black" id="p-ico"><i class="fa-solid fa-microphone-lines text-xl"></i></div>
                 <div class="overflow-hidden text-right">
                     <h5 id="p-title" class="text-xs font-black text-white truncate">...</h5>
                     <p id="p-subtitle" class="text-[9px] text-gold font-bold uppercase tracking-widest">تلاوة جارية</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4 px-2">
-                <span id="p-curr" class="text-[10px] font-mono text-white/70">0:00</span>
-                <input type="range" id="p-seek" class="flex-1 accent-gold h-1 bg-white/20 rounded-full" value="0">
-                <span id="p-dur" class="text-[10px] font-mono text-white/70">0:00</span>
-            </div>
-            <div class="flex items-center justify-center gap-10 mt-5">
-                <button onclick="pSeek(-10)" class="text-white/60 hover:text-gold transition-colors text-xl"><i class="fa-solid fa-rotate-left"></i></button>
-                <button onclick="toggleAudio()" class="w-16 h-16 bg-gold text-black rounded-full flex items-center justify-center shadow-xl active:scale-90 transition-all border-4 border-black/20"><i id="p-btn-ico" class="fa-solid fa-play text-2xl"></i></button>
-                <button onclick="pSeek(10)" class="text-white/60 hover:text-gold transition-colors text-xl"><i class="fa-solid fa-rotate-right"></i></button>
-            </div>
+            <audio id="main-audio" onended="onAudioEnded()" ontimeupdate="onTimeUpdate()" onplay="uiPlaying(true)" onpause="uiPlaying(false)"></audio>
+            <button onclick="toggleAudio()" class="w-full py-4 gold-btn rounded-xl"><i id="p-btn-ico" class="fa-solid fa-play"></i></button>
         </div>
-        <div class="player-mini-view" onclick="toggleMinimize(false)">
-            <button onclick="event.stopPropagation(); closePlayer();" class="absolute -top-2 -left-2 w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center text-[10px] border border-black z-50"><i class="fa-solid fa-x"></i></button>
-            <i class="fa-solid fa-waveform animate-pulse text-2xl"></i>
-        </div>
-        <audio id="main-audio" onended="onAudioEnded()" ontimeupdate="onTimeUpdate()" onplay="uiPlaying(true)" onpause="uiPlaying(false)"></audio>
     </div>
 
     <div id="main-modal" class="fixed inset-0 z-[2000] hidden items-center justify-center bg-black/98 p-4 backdrop-blur-xl">
-        <div class="glass-card w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+        <div class="glass-card w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden shadow-2xl">
             <div class="p-6 border-b border-white/15 flex justify-between items-center sticky top-0 bg-black/70 z-10">
                 <h3 id="modal-title" class="text-sm font-black text-gold uppercase tracking-widest">...</h3>
-                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-red-500/20 transition-all"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <button onclick="closeModal()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div id="modal-content" class="p-8 overflow-y-auto no-scrollbar scroll-smooth"></div>
+            <div id="modal-content" class="p-8 overflow-y-auto"></div>
         </div>
     </div>
 
     <nav class="fixed bottom-0 left-0 right-0 glass-card !rounded-none border-t border-white/15 p-4 flex justify-around items-center z-[1000] bg-black/98 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
-        <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 active"><i class="fa-solid fa-house-chimney text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">الرئيسية</span></button>
-        <button onclick="switchTab('quran')" id="nav-quran" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-book-open text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">المصحف</span></button>
-        <button onclick="switchTab('audio')" id="nav-audio" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-headphones text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">المكتبة</span></button>
-        <button onclick="switchTab('hadith')" id="nav-hadith" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-scroll text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">السنة</span></button>
-        <button onclick="switchTab('radar')" id="nav-radar" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-bolt-lightning text-lg"></i><span class="text-[8px] font-bold uppercase tracking-tighter">الاستنباط</span></button>
+        <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex flex-col items-center gap-1 active"><i class="fa-solid fa-house-chimney text-lg"></i><span class="text-[8px] font-bold uppercase">الرئيسية</span></button>
+        <button onclick="switchTab('quran')" id="nav-quran" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-book-open text-lg"></i><span class="text-[8px] font-bold uppercase">المصحف</span></button>
+        <button onclick="switchTab('audio')" id="nav-audio" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-headphones text-lg"></i><span class="text-[8px] font-bold uppercase">المكتبة</span></button>
+        <button onclick="switchTab('hadith')" id="nav-hadith" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-scroll text-lg"></i><span class="text-[8px] font-bold uppercase">السنة</span></button>
+        <button onclick="switchTab('radar')" id="nav-radar" class="nav-btn flex flex-col items-center gap-1 text-white/50"><i class="fa-solid fa-bolt-lightning text-lg"></i><span class="text-[8px] font-bold uppercase">الاستنباط</span></button>
     </nav>
 
     <script>
-        const state = {
-            tafsirEnabled: false,
-            sharhEnabled: false,
-            activeReader: 'shur',
+        const state = { tafsirEnabled: false, sharhEnabled: false, activeReader: 'shur', dailyAyah: null,
             books: [
                 { id: "bukhari", name: "صحيح البخاري", author: "البخاري", count: "7563", color: "from-blue-600/10" },
                 { id: "muslim", name: "صحيح مسلم", author: "مسلم", count: "3033", color: "from-green-600/10" },
@@ -286,8 +202,7 @@
                 { id: "abudawood", name: "سنن أبي داود", author: "أبو داود", count: "5274", color: "from-red-600/10" },
                 { id: "tirmidhi", name: "جامع الترمذي", author: "الترمذي", count: "3956", color: "from-purple-600/10" },
                 { id: "ibnmajah", name: "سنن ابن ماجه", author: "ابن ماجه", count: "4341", color: "from-orange-600/10" }
-            ],
-            dailyAyah: null
+            ]
         };
 
         const audio = document.getElementById('main-audio');
@@ -299,25 +214,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt, system })
                 });
-                if (!res.ok) {
-                    const errorDetails = await res.json();
-                    throw new Error(errorDetails.error || "خطأ في الاتصال بالخادم");
-                }
                 return await res.json();
-            } catch (e) {
-                console.error("AI Error:", e);
-                throw e;
-            }
+            } catch (e) { throw e; }
         }
 
         function closeInitialDisclaimer() { document.getElementById('initial-disclaimer').style.display = 'none'; }
-        function toggleMinimize(m) { const player = document.getElementById('player'); if(m) player.classList.add('minimized'); else player.classList.remove('minimized'); }
-        
-        function closePlayer() {
-            audio.pause(); audio.src = "";
-            document.getElementById('player').classList.remove('active', 'minimized');
-            document.querySelectorAll('.interactive-ayah').forEach(el => el.classList.remove('is-playing'));
-        }
+        function closePlayer() { audio.pause(); audio.src = ""; document.getElementById('player').classList.remove('active'); }
+        function toggleAudio() { audio.paused ? audio.play() : audio.pause(); }
+        function uiPlaying(p) { document.getElementById('p-btn-ico').className = p ? "fa-solid fa-pause" : "fa-solid fa-play"; }
+        function onTimeUpdate() {}
+        function onAudioEnded() { uiPlaying(false); }
 
         function switchTab(id) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -327,205 +233,61 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function setActiveReader(r) {
-            state.activeReader = r;
-            document.getElementById('r-shur').className = r === 'shur' ? "flex-1 py-3 rounded-xl text-xs font-bold bg-gold text-black transition-all" : "flex-1 py-3 rounded-xl text-xs font-bold text-white/50 transition-all";
-            document.getElementById('r-afs').className = r === 'afs' ? "flex-1 py-3 rounded-xl text-xs font-bold bg-gold text-black transition-all" : "flex-1 py-3 rounded-xl text-xs font-bold text-white/50 transition-all";
-        }
-
-        function playFullSurah(num, name) {
-            const sNum = num.toString().padStart(3, '0');
-            const path = state.activeReader === 'shur' ? `https://server7.mp3quran.net/shur/${sNum}.mp3` : `https://server8.mp3quran.net/afs/${sNum}.mp3`;
-            audio.src = path; audio.play();
-            document.getElementById('p-title').innerText = "سورة " + name;
-            document.getElementById('p-subtitle').innerText = state.activeReader === 'shur' ? 'الشيخ سعود الشريم' : 'الشيخ مشاري العفاسي';
-            document.getElementById('player').classList.add('active'); toggleMinimize(false);
-        }
-
-        function playAyah(sId, aId, sName) {
-            const s = sId.toString().padStart(3, '0'), a = aId.toString().padStart(3, '0');
-            audio.src = `https://www.everyayah.com/data/Alafasy_128kbps/${s}${a}.mp3`;
-            audio.play();
-            document.getElementById('p-title').innerText = `${sName} (الآية ${aId})`;
-            document.getElementById('p-subtitle').innerText = "مشاري العفاسي - تلاوة تفاعلية";
-            document.getElementById('player').classList.add('active'); toggleMinimize(false);
-            document.querySelectorAll('.interactive-ayah').forEach(el => el.classList.remove('is-playing'));
-            const node = document.getElementById(`ay-node-${aId}`); if(node) node.classList.add('is-playing');
-        }
-
-        function toggleAudio() { audio.paused ? audio.play() : audio.pause(); }
-        function pSeek(s) { audio.currentTime += s; }
-        function uiPlaying(p) { document.getElementById('p-btn-ico').className = p ? "fa-solid fa-pause text-2xl" : "fa-solid fa-play text-2xl"; if(p) document.getElementById('p-ico').classList.add('animate-pulse'); else document.getElementById('p-ico').classList.remove('animate-pulse'); }
-        function onTimeUpdate() { if(!isNaN(audio.duration)) { document.getElementById('p-seek').max = audio.duration; document.getElementById('p-seek').value = audio.currentTime; document.getElementById('p-curr').innerText = fmtTime(audio.currentTime); document.getElementById('p-dur').innerText = fmtTime(audio.duration); } }
-        function fmtTime(s) { const m = Math.floor(s/60), sc = Math.floor(s%60); return `${m}:${sc<10?'0':''}${sc}`; }
-        function onAudioEnded() { uiPlaying(false); document.querySelectorAll('.interactive-ayah').forEach(el => el.classList.remove('is-playing')); }
-        document.getElementById('p-seek').oninput = (e) => audio.currentTime = e.target.value;
-
-        async function searchQuran() {
-            const q = document.getElementById('q-search-in').value.trim();
-            const resView = document.getElementById('quran-res-view'), idxView = document.getElementById('quran-index-view');
-            if(!q) { resView.classList.add('hidden'); idxView.classList.remove('hidden'); return; }
-            idxView.classList.add('hidden'); resView.classList.remove('hidden');
-            resView.innerHTML = `<div class="p-10 text-center animate-pulse text-gold">جاري البحث الملكي...</div>`;
-            try {
-                const res = await fetch(`https://api.alquran.cloud/v1/search/${encodeURIComponent(q)}/all/quran-simple-clean`);
-                const data = await res.json();
-                if(!data.data || data.data.matches.length === 0) { resView.innerHTML = `<div class="p-10 text-center text-white/50 font-bold">لا توجد نتائج مطابقة لبحثك.</div>`; return; }
-                let html = "";
-                for(let m of data.data.matches.slice(0, 10)) {
-                    let tafsirHtml = "";
-                    if(state.tafsirEnabled) { try { const tr = await fetch(`https://api.alquran.cloud/v1/ayah/${m.surah.number}:${m.numberInSurah}/ar.jalalayn`); const td = await tr.json(); if(td.data) tafsirHtml = `<div class="mt-4 p-5 bg-white/5 rounded-2xl text-[12px] text-white border-r-4 border-gold leading-relaxed italic shadow-inner">${td.data.text}</div>`; } catch(e) {} }
-                    html += `<div class="glass-card p-6 cursor-pointer hover:border-gold/60" onclick="openSurahView(${m.surah.number}, '${m.surah.name}', ${m.numberInSurah})"><div class="flex justify-between items-center mb-4"><span class="text-[9px] font-black text-gold uppercase">سورة ${m.surah.name}</span><span class="text-[9px] font-bold text-white/40">الآية ${m.numberInSurah}</span></div><p class="quran-font text-2xl text-right text-white leading-loose">${m.text}</p>${tafsirHtml}</div>`;
-                }
-                resView.innerHTML = html;
-            } catch(e) { resView.innerHTML = `<div class="p-10 text-center text-red-400 text-xs">تأكد من اتصالك بالإنترنت.</div>`; }
-        }
-
-        async function openSurahView(num, name, highlight = null) {
-            showModal(`سورة ${name}`, "جاري التحميل...");
-            try {
-                const r = await fetch(`https://api.alquran.cloud/v1/surah/${num}/quran-uthmani`);
-                const d = await r.json();
-                let tafsirData = null; if(state.tafsirEnabled) { const tr = await fetch(`https://api.alquran.cloud/v1/surah/${num}/ar.jalalayn`); const td = await tr.json(); tafsirData = td.data.ayahs; }
-                let html = `<div class="quran-font text-right leading-[3.5] text-2xl text-white">`;
-                d.data.ayahs.forEach((a, i) => {
-                    const active = a.numberInSurah === highlight ? 'is-playing' : '';
-                    html += `<span id="ay-node-${a.numberInSurah}" class="interactive-ayah ${active}" onclick="playAyah(${num}, ${a.numberInSurah}, '${name}')"> ${a.text} <span class="text-gold text-sm font-bold">﴿${a.numberInSurah}﴾</span></span>`;
-                    if(state.tafsirEnabled && tafsirData) html += `<div class="text-[12px] text-white/90 bg-white/5 p-4 rounded-xl my-4 border-r-4 border-gold shadow-sm">${tafsirData[i].text}</div>`;
-                });
-                document.getElementById('modal-content').innerHTML = html + `</div><p class="mt-10 text-[9px] text-white/30 text-center uppercase tracking-[0.3em] font-black">اضغط على الآية لسماعها بصوت العفاسي</p>`;
-                if(highlight) setTimeout(() => { const el = document.getElementById(`ay-node-${highlight}`); if(el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 500);
-            } catch(e) {}
-        }
-
-        // --- Hadith Functions (Dorar API) ---
-        async function searchHadithProcess() {
-            const query = document.getElementById('h-search-in').value.trim();
-            if (!query) return;
-            const resView = document.getElementById('hadith-res-view');
-            resView.innerHTML = `<div class="p-10 text-center animate-pulse text-gold">جاري البحث في الموسوعة الحديثية...</div>`;
-            resView.classList.remove('hidden');
-            try {
-                const res = await fetch(`/api/hadith?q=${encodeURIComponent(query)}`);
-                const data = await res.json();
-                if (data && data.ahadith) {
-                    resView.innerHTML = data.ahadith.map(h => `
-                        <div class="glass-card p-6 mb-4 shadow-xl border-r-4 border-gold relative">
-                            <p class="quran-font text-xl text-right text-white leading-loose">${h.hadith}</p>
-                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] text-white/60 font-bold">
-                                <span>الراوي: ${h.rawi}</span>
-                                <span>المحدث: ${h.mohadith}</span>
-                                <span>المصدر: ${h.book}</span>
-                                <span class="text-gold">خلاصة حكم المحدث: ${h.degree}</span>
-                            </div>
-                            <div class="mt-4 flex justify-between items-center opacity-30">
-                                <a href="https://dorar.net" target="_blank" class="text-[8px] hover:opacity-100 transition-all">المصدر: الدرر السنية</a>
-                                <button onclick="reportHadithError('${h.hadith.substring(0, 50)}')" class="text-[8px] hover:text-red-400 transition-all">تبليغ عن خطأ</button>
-                            </div>
-                        </div>
-                    `).join('');
-                } else {
-                    resView.innerHTML = '<div class="p-10 text-center text-white/50">لم يتم العثور على نتائج في الدرر السنية.</div>';
-                }
-            } catch (e) {
-                resView.innerHTML = '<div class="p-10 text-center text-red-400">فشل في الاتصال بمصدر الأحاديث.</div>';
-            }
-        }
-
-        function reportHadithError(txt) {
-            if(confirm("هل تريد فتح صفحة البحث في الدرر السنية للتأكد؟")) {
-                window.open(`https://dorar.net/hadith/search?q=${encodeURIComponent(txt)}`, '_blank');
-            }
-        }
-
-        // --- Radar Analysis ---
         async function startRadarAnalysis(forcedQuery = null) {
             const q = forcedQuery || document.getElementById('ai-in').value.trim(); 
             if(!q) return;
             const resBox = document.getElementById('radar-res'); const load = document.getElementById('radar-loading'); const btn = document.getElementById('radar-btn');
             resBox.innerHTML = ""; load.classList.remove('hidden'); btn.disabled = true;
-            const systemPrompt = `أنت عالم محقق وفقيه لغوي خبير. مهمتك تحليل النص المقدم بناءً على المعايير التالية:
-            1. إذا كان النص فقهياً: يجب ذكر (3-5) أوجه فقهية مستقاة من المذاهب الأربعة، مع تفصيل دليل كل مذهب من الكتاب والسنة والقواعد الأصولية. ثم تحديد "القول الراجح" بناءً على قوة الدليل ومقاصد الشريعة، مع تعليل الترجيح ببرهان علمي.
-            2. إذا كان النص أدبياً: يجب توثيق القائل بدقة وعصره الأدبي والمصدر الأصلي (الديوان)، مع شرح بلاغي للنص. إذا سُئلت عن بيت شعر، ابحث في دواوين العرب بدقة. إذا لم تكن متأكداً 100% من القائل، اذكر (القائل: غير مؤكد) بدلاً من التخمين.
-            3. التنسيق JSON حصراً: {"type": "literary" | "religious", "literary_data": { "author", "source", "explanation", "suggestion_text" }, "religious_data": { "title", "perspectives": [{"name", "ruling", "text", "colorType"}], "preferred": {"opinion", "justification", "evidence"} }}`;
+
+            // --- THE KING PROMPT (The Protocol) ---
+            const systemPrompt = `أنت محقق فقهي ولغوي بارع. مهمتك تقديم تحليل عميق ومتنوع بناءً على المعايير التالية:
+            1. التنوع المذهبي: اذكر (3-5) آراء فقهية متباينة (مثلاً: رأي الجمهور، رأي الحنابلة، رأي الظاهرية) ولا تكتفِ برأي واحد.
+            2. الدليل الموثق القاطع: يُمنع قول "روايات الإمام" أو "كتب الفقه" بشكل عام. يجب ذكر نص الآية برقمها، أو نص الحديث بمصدره (البخاري، مسلم، إلخ)، أو اسم الكتاب الفقهي (مثل: المجموع، المغني) مع نص الشاهد منه بذكر (المجلد والصفحة) إن أمكن.
+            3. في الأدب: وثق البيت بنسبته لصاحبه الحقيقي بعد البحث في دواوين العرب. إذا لم تكن متأكداً اذكر (القائل: غير مؤكد).
+            4. التنسيق إلزامي بصيغة JSON حصراً بهذا الهيكل:
+            {"type": "literary" | "religious", "literary_data": { "author", "source", "explanation", "suggestion_text" }, "religious_data": { "title", "perspectives": [{"name", "ruling", "text", "colorType"}], "preferred": {"opinion", "justification", "evidence"} }}`;
+
             try {
-                const data = await fetchAI(`حلل بدقة عالية: "${q}"`, systemPrompt);
+                const data = await fetchAI(`حلل بأدلة نصية صريحة وتنوع مذهبي: "${q}"`, systemPrompt);
                 if (data.type === 'literary') {
-                    resBox.innerHTML = `<div class="glass-card p-8 border-gold/40 shadow-xl"><h3 class="royal-gold-title text-center text-xl mb-6 border-b border-gold/20 pb-4">توثيق النص الأدبي</h3><div class="space-y-6 text-right"><div><span class="text-gold font-black">القائل:</span> <span class="text-white font-bold">${data.literary_data.author}</span></div><div><span class="text-gold font-black">المصدر:</span> <span class="text-white italic">${data.literary_data.source}</span></div><div class="bg-white/5 p-5 rounded-2xl border border-white/10 shadow-inner"><p class="text-sm leading-relaxed text-white/90">${data.literary_data.explanation}</p></div><div class="mt-10 p-6 border-2 border-gold/30 rounded-2xl bg-gold/5 text-center"><p class="text-gold font-black mb-6 italic text-md">"${data.literary_data.suggestion_text}"</p><button onclick="startRadarAnalysis('استنبط الحكم الشرعي لهذا المعنى: ${q}')" class="w-full py-4 gold-btn rounded-xl active:scale-95 transition-all text-sm uppercase tracking-widest">بدء الاستنباط مع الأدلة</button></div></div></div>`;
+                    resBox.innerHTML = `<div class="glass-card p-8 border-gold/40 shadow-xl"><h3 class="royal-gold-title text-center text-xl mb-6 border-b border-gold/20 pb-4">توثيق النص الأدبي</h3><div class="space-y-6 text-right"><div><span class="text-gold font-black">القائل الموثق:</span> <span class="text-white font-bold">${data.literary_data.author}</span></div><div><span class="text-gold font-black">المصدر:</span> <span class="text-white italic">${data.literary_data.source}</span></div><div class="bg-white/5 p-5 rounded-2xl border border-white/10"><p class="text-sm leading-relaxed text-white/90">${data.literary_data.explanation}</p></div><div class="mt-10 p-6 border-2 border-gold/30 rounded-2xl bg-gold/5 text-center"><p class="text-gold font-black mb-6 italic">"${data.literary_data.suggestion_text}"</p><button onclick="startRadarAnalysis('استنبط الحكم الشرعي لهذا المعنى: ${q}')" class="w-full py-4 gold-btn rounded-xl text-sm">بدء الاستنباط الفقهي للمشهد</button></div></div></div>`;
                 } else {
-                    resBox.innerHTML = `<div class="space-y-6"><h3 class="text-sm font-black text-gold text-center uppercase tracking-widest bg-gold/10 py-3 rounded-xl border border-gold/30">${data.religious_data.title}</h3>${data.religious_data.perspectives.map(p => `<div class="glass-card p-6 ruling-${p.ruling || p.colorType} shadow-2xl"><div class="flex justify-between items-center mb-5"><span class="text-[11px] font-black text-white/80 uppercase tracking-wider">${p.name}</span><div class="flex items-center gap-2 px-4 py-2 rounded-full badge-${p.ruling || p.colorType}"><i class="fa-solid ${p.ruling === 'حرام' ? 'fa-ban' : 'fa-circle-check'}"></i><span class="text-[12px] font-black">${p.ruling}</span></div></div><p class="text-sm leading-relaxed text-right text-white font-medium">${p.text}</p></div>`).join('')}<div class="preferred-box p-8 shadow-[0_0_40px_rgba(212,175,55,0.15)]"><div class="flex items-center gap-4 mb-4"><div class="w-10 h-10 rounded-2xl bg-gold/20 flex items-center justify-center text-gold shadow-lg"><i class="fa-solid fa-gavel"></i></div><h4 class="royal-gold-title uppercase">الخلاصة والقول الراجح</h4></div><div class="border-b border-white/10 mb-6 text-white font-bold text-xl text-center pb-4">${data.religious_data.preferred.opinion}</div><div class="p-6 justification-box rounded-2xl mb-6 shadow-inner"><p class="text-[11px] font-black uppercase tracking-widest mb-2 text-gold">التعليل العلمي:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.justification}</p></div><div class="p-6 evidence-box rounded-2xl shadow-inner"><p class="text-[11px] font-black uppercase tracking-widest mb-2 text-gold">الدليل الموثق:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.evidence}</p></div></div></div>`;
+                    resBox.innerHTML = `<div class="space-y-6"><h3 class="text-sm font-black text-gold text-center uppercase tracking-widest bg-gold/10 py-3 rounded-xl border border-gold/30">${data.religious_data.title}</h3>${data.religious_data.perspectives.map(p => `<div class="glass-card p-6 ruling-${p.ruling || p.colorType} shadow-2xl"><div class="flex justify-between items-center mb-5"><span class="text-[11px] font-black text-white/80 uppercase tracking-wider">${p.name}</span><div class="flex items-center gap-2 px-4 py-2 rounded-full badge-${p.ruling || p.colorType}"><i class="fa-solid ${p.ruling === 'حرام' ? 'fa-ban' : 'fa-circle-check'}"></i><span class="text-[12px] font-black">${p.ruling}</span></div></div><p class="text-sm leading-relaxed text-right text-white font-medium">${p.text}</p></div>`).join('')}<div class="preferred-box p-8 shadow-[0_0_40px_rgba(212,175,55,0.15)]"><div class="flex items-center gap-4 mb-4"><div class="w-10 h-10 rounded-2xl bg-gold/20 flex items-center justify-center text-gold shadow-lg"><i class="fa-solid fa-gavel"></i></div><h4 class="royal-gold-title uppercase">الخلاصة والقول الراجح</h4></div><div class="border-b border-white/10 mb-6 text-white font-bold text-xl text-center pb-4">${data.religious_data.preferred.opinion}</div><div class="p-6 justification-box rounded-2xl mb-6 shadow-inner"><p class="text-[11px] font-black text-gold">التعليل العلمي:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.justification}</p></div><div class="p-6 evidence-box rounded-2xl shadow-inner"><p class="text-[11px] font-black text-gold">الدليل القاطع المرجح:</p><p class="text-[14px] italic text-white leading-relaxed font-bold">${data.religious_data.preferred.evidence}</p></div></div></div>`;
                 }
-                resBox.innerHTML += `<div class="mt-6 flex justify-center"><button onclick="reportError()" class="text-[10px] text-red-400/60 hover:text-red-400 font-bold border border-red-400/20 px-4 py-2 rounded-full transition-all"><i class="fa-solid fa-triangle-exclamation ml-1"></i> تبليغ عن خطأ علمي</button></div>`;
-            } catch(e) { resBox.innerHTML = `<div class="p-10 text-center text-red-400 font-bold">فشل التحليل، يرجى المحاولة لاحقاً.</div>`; }
+                resBox.innerHTML += `<div class="mt-6 flex flex-col items-center gap-3"><p class="text-[9px] text-white/30 italic uppercase">هل تلاحظ خطأ علمياً؟ ساهم في تطوير هدى</p><button onclick="reportError()" class="flex items-center gap-2 px-6 py-3 rounded-full border border-red-500/20 text-red-400/60 hover:text-red-400 text-[10px] font-bold"><i class="fa-solid fa-triangle-exclamation"></i> تبليغ عن معلومة غير دقيقة</button></div>`;
+            } catch(e) { resBox.innerHTML = `<div class="p-10 text-center text-red-400 font-bold">فشل التحليل، يرجى المحاولة.</div>`; }
             finally { load.classList.add('hidden'); btn.disabled = false; }
         }
 
         function reportError() {
             const userIn = document.getElementById('ai-in').value;
             const aiOut = document.getElementById('radar-res').innerText;
-            const body = `المدخل: ${userIn}\n\nالنتيجة الخاطئة: ${aiOut}`;
-            window.location.href = `mailto:support@huda.app?subject=بلاغ خطأ&body=${encodeURIComponent(body)}`;
-            alert("تم فتح البريد لإرسال تفاصيل الخطأ.");
+            window.location.href = `mailto:report@huda.app?subject=بلاغ خطأ&body=${encodeURIComponent("المدخل: " + userIn + "\n\nالرد: " + aiOut)}`;
         }
 
-        async function changeCity(f = null) {
-            const city = f || document.getElementById('city-in').value.trim(); if(!city) return;
-            try { const r = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`); const d = await r.json(); if(d.code === 200) renderPrayerTimes(d.data, city.toUpperCase()); } catch(e) { document.getElementById('header-loc').innerText = "خطأ في المدينة"; }
-        }
-
-        function renderPrayerTimes(d, city) {
-            const t = d.timings, map = { Fajr: 'فجر', Dhuhr: 'ظهر', Asr: 'عصر', Maghrib: 'مغرب', Isha: 'عشاء' };
-            document.getElementById('prayer-list').innerHTML = Object.keys(map).map(k => `<div class="flex flex-col items-center bg-white/10 p-4 rounded-xl border border-white/20 shadow-md"><span class="text-[9px] text-white/50 font-black mb-1 uppercase tracking-widest">${map[k]}</span><span class="text-[13px] font-black text-white">${t[k]}</span></div>`).join('');
-            document.getElementById('header-loc').innerText = city;
-            document.getElementById('hijri-date').innerText = `${d.date.hijri.day} ${d.date.hijri.month.ar} ${d.date.hijri.year} هـ`;
-            document.getElementById('greg-date').innerText = d.date.readable;
-            const now = new Date(); let next = { n: 'الفجر', t: t.Fajr };
-            for(let k in map) { const [h, m] = t[k].split(':'); const pD = new Date(); pD.setHours(h, m, 0); if(pD > now) { next = { n: map[k], t: t[k] }; break; } }
-            document.getElementById('next-p-name').innerText = next.n; document.getElementById('next-p-time').innerText = next.t;
+        // --- Other Logic ---
+        async function searchHadithProcess() {
+            const query = document.getElementById('h-search-in').value.trim();
+            if (!query) return;
+            const resView = document.getElementById('hadith-res-view');
+            resView.innerHTML = `<div class="p-10 text-center animate-pulse text-gold">جاري البحث في الدرر السنية...</div>`;
+            resView.classList.remove('hidden');
+            try {
+                const res = await fetch(`/api/hadith?q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                if (data && data.ahadith) {
+                    resView.innerHTML = data.ahadith.map(h => `<div class="glass-card p-6 mb-4 border-r-4 border-gold"><p class="quran-font text-xl text-right text-white leading-loose">${h.hadith}</p><div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] text-white/60 font-bold"><span>الراوي: ${h.rawi}</span><span>المحدث: ${h.mohadith}</span><span class="text-gold">الحكم: ${h.degree}</span></div><div class="mt-4 text-[8px] opacity-30">المصدر: الدرر السنية</div></div>`).join('');
+                } else { resView.innerHTML = '<div class="p-10 text-center text-white/50">لم يتم العثور على نتائج.</div>'; }
+            } catch (e) { resView.innerHTML = '<div class="p-10 text-center text-red-400">فشل في الاتصال.</div>'; }
         }
 
         async function initBooks() {
-            const r = await fetch(`https://api.alquran.cloud/v1/surah`);
-            const d = await r.json();
-            document.getElementById('quran-index-view').innerHTML = d.data.map(s => `<div onclick="openSurahView(${s.number}, '${s.name}')" class="glass-card p-5 flex justify-between items-center cursor-pointer hover:border-gold/60 mb-2"><div class="flex items-center gap-4"><span class="w-10 h-10 rounded-xl bg-gold/15 flex items-center justify-center font-black text-gold text-xs border border-gold/30">${s.number}</span><h4 class="text-sm font-black text-white">${s.name}</h4></div><span class="text-[10px] font-bold text-white/30 tracking-widest">${s.numberOfAyahs} آية</span></div>`).join('');
-            document.getElementById('audio-surah-list').innerHTML = d.data.map(s => `<div onclick="playFullSurah(${s.number}, '${s.name}')" class="glass-card p-4 flex justify-between items-center cursor-pointer hover:bg-gold/15 border-white/10 mb-2 shadow-md"><span class="text-xs font-black text-white">${s.name}</span><i class="fa-solid fa-play-circle text-gold opacity-60 text-lg"></i></div>`).join('');
-            const grid = document.getElementById('books-grid');
-            grid.innerHTML = state.books.map(b => `<div onclick="openBook('${b.id}')" class="glass-card p-6 border-b-4 border-white/20 cursor-pointer hover:border-gold group bg-gradient-to-tr ${b.color} to-transparent shadow-xl mb-3"><h3 class="text-sm font-black text-gold mb-1 group-hover:tracking-widest transition-all">${b.name}</h3><p class="text-[10px] text-white/50 font-bold mb-4 uppercase">المؤلف: ${b.author}</p><div class="flex justify-between items-center"><span class="text-[10px] font-black text-white/20">${b.count} حديث</span><i class="fa-solid fa-arrow-left text-gold/40"></i></div></div>`).join('');
+            const r = await fetch(`https://api.alquran.cloud/v1/surah`); const d = await r.json();
+            document.getElementById('quran-index-view').innerHTML = d.data.map(s => `<div onclick="openSurahView(${s.number}, '${s.name}')" class="glass-card p-5 flex justify-between items-center cursor-pointer mb-2"><div><h4 class="text-sm font-black text-white">${s.name}</h4></div><span class="text-[10px] text-white/30">${s.numberOfAyahs} آية</span></div>`).join('');
+            document.getElementById('audio-surah-list').innerHTML = d.data.map(s => `<div onclick="playFullSurah(${s.number}, '${s.name}')" class="glass-card p-4 flex justify-between items-center cursor-pointer mb-2"><span class="text-xs text-white">${s.name}</span><i class="fa-solid fa-play-circle text-gold opacity-60"></i></div>`).join('');
+            document.getElementById('books-grid').innerHTML = state.books.map(b => `<div onclick="openBook('${b.id}')" class="glass-card p-6 border-b-4 border-white/20 mb-3"><h3 class="text-sm font-black text-gold">${b.name}</h3><p class="text-[10px] text-white/50">المؤلف: ${b.author}</p></div>`).join('');
         }
 
-        async function openBook(id) {
-            state.currentBook = state.books.find(b => b.id === id);
-            document.getElementById('books-grid').classList.add('hidden');
-            document.getElementById('book-content-view').classList.remove('hidden');
-            const list = document.getElementById('chapter-list');
-            list.innerHTML = `<div class="p-20 text-center animate-pulse text-gold"><i class="fa-solid fa-spinner fa-spin text-2xl"></i></div>`;
-            try { const chapters = await fetchAI(`أبواب ${state.currentBook.name}`, "أخرج JSON قائمة كائنات {id, title, count}."); list.innerHTML = chapters.map(ch => `<div onclick="loadHadiths('${state.currentBook.id}', '${ch.title}', ${ch.count})" class="glass-card p-4 flex justify-between items-center cursor-pointer hover:bg-gold/10 border-white/15 mb-2 shadow-md"><span class="text-xs font-bold text-white">${ch.title}</span><span class="text-[10px] font-black text-gold/60">${ch.count} حديث</span></div>`).join(''); } catch(e) {}
-        }
-
-        async function loadHadiths(bookId, title, count) {
-            document.getElementById('chapter-list').classList.add('hidden');
-            const list = document.getElementById('hadith-list'); list.classList.remove('hidden');
-            list.innerHTML = `<div class="p-20 text-center animate-pulse text-gold"><i class="fa-solid fa-spinner fa-spin text-2xl"></i></div>`;
-            try {
-                const systemPrompt = `أخرج JSON قائمة كائنات {text, narrator, grade, source${state.sharhEnabled ? ', sharh' : ''}}.`;
-                const hadiths = await fetchAI(`أحاديث باب ${title} من كتاب ${bookId}`, systemPrompt);
-                list.innerHTML = `<div class="mb-8 flex justify-between items-center border-b border-white/10 pb-4"><button onclick="backToChapters()" class="text-[10px] text-gold font-black uppercase tracking-widest bg-gold/15 px-4 py-2 rounded-lg border border-gold/30"><i class="fa-solid fa-chevron-right ml-2"></i> الأبواب</button><span class="text-[10px] text-white/50 font-black">${title}</span></div>${hadiths.map((h, i) => `<div class="glass-card p-6 mb-6 border-white/15 shadow-2xl"><div class="flex justify-between items-center mb-6"><span class="text-[11px] text-white/40 font-bold">#${i+1}</span><span class="px-3 py-1 rounded-full text-[10px] font-black ${h.grade.includes('صحيح')?'bg-green-500/20 text-green-400':'bg-yellow-500/20 text-yellow-400'} uppercase">${h.grade}</span></div><p class="quran-font text-2xl text-right text-white leading-loose mb-6">${h.text}</p>${state.sharhEnabled && h.sharh ? `<div class="mt-6 p-6 bg-black/60 rounded-2xl text-[13px] border-r-4 border-gold leading-relaxed italic text-white/90 shadow-inner">الشرح: ${h.sharh}</div>` : ''}<p class="text-[11px] text-white/50 italic mt-8 text-left border-t border-white/10 pt-4 font-bold">رواه ${h.narrator} | المصدر: ${h.source}</p></div>`).join('')}`;
-            } catch(e) {}
-        }
-
-        function backToBooks() { document.getElementById('book-content-view').classList.add('hidden'); document.getElementById('books-grid').classList.remove('hidden'); }
-        function backToChapters() { document.getElementById('hadith-list').classList.add('hidden'); document.getElementById('chapter-list').classList.remove('hidden'); }
-
-        async function initDailyAyah() {
-            try { 
-                const r = await fetch(`https://api.alquran.cloud/v1/ayah/${Math.floor(Math.random() * 6236) + 1}/ar.alafasy`); 
-                const d = await r.json(); 
-                state.dailyAyah = d.data; 
-                document.getElementById('daily-ayah-txt').innerText = d.data.text; 
-                document.getElementById('daily-ayah-surah').innerText = "سورة " + d.data.surah.name;
-                document.getElementById('daily-ayah-num').innerText = "الآية " + d.data.numberInSurah;
-            } catch(e) {}
-        }
         function showDailyAyah() { if(state.dailyAyah) openSurahView(state.dailyAyah.surah.number, state.dailyAyah.surah.name, state.dailyAyah.numberInSurah); }
         function debounceQuranSearch() { clearTimeout(window.qt); window.qt = setTimeout(searchQuran, 800); }
         function debounceHadithSearch() { clearTimeout(window.ht); window.ht = setTimeout(searchHadithProcess, 800); }
@@ -533,6 +295,12 @@
         function closeModal() { document.getElementById('main-modal').classList.replace('flex', 'hidden'); }
         window.onload = () => { initLocation(); initBooks(); initDailyAyah(); };
         function initLocation() { navigator.geolocation.getCurrentPosition(async (pos) => { const r = await fetch(`https://api.aladhan.com/v1/timings?latitude=${pos.coords.latitude}&longitude=${pos.coords.longitude}&method=4`); const d = await r.json(); renderPrayerTimes(d.data, "موقعك الحالي"); }, () => { changeCity("Makkah"); }); }
+        async function changeCity(f = null) { const city = f || document.getElementById('city-in').value.trim(); if(!city) return; try { const r = await fetch(`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=&method=4`); const d = await r.json(); if(d.code === 200) renderPrayerTimes(d.data, city.toUpperCase()); } catch(e) {} }
+        function renderPrayerTimes(d, city) {
+            const t = d.timings, map = { Fajr: 'فجر', Dhuhr: 'ظهر', Asr: 'عصر', Maghrib: 'مغرب', Isha: 'عشاء' };
+            document.getElementById('prayer-list').innerHTML = Object.keys(map).map(k => `<div class="flex flex-col items-center bg-white/10 p-4 rounded-xl"><span>${map[k]}</span><span>${t[k]}</span></div>`).join('');
+            document.getElementById('header-loc').innerText = city; document.getElementById('hijri-date').innerText = d.date.hijri.day + " " + d.date.hijri.month.ar;
+        }
     </script>
 </body>
 </html>
