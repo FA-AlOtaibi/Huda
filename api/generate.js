@@ -1,57 +1,40 @@
 export default async function handler(req, res) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' });
-    }
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    const { prompt, system } = req.body;
+    // المفتاح الذي ستحصل عليه من Groq Console
+    const apiKey = process.env.GROQ_API_KEY; 
 
     try {
-        const { prompt, system } = req.body;
-        const apiKey = process.env.GEMINI_API_KEY;
-
-       const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-        
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: `Instructions: ${system}\n\nUser: ${prompt}` }] }],
-                generationConfig: { 
-                    temperature: 0.7 
-                }
+                // سنستخدم Llama 3 70B لأنه الأقوى في التحليل الفقهي والأدبي
+                model: "llama3-70b-8192", 
+                messages: [
+                    { role: "system", content: system },
+                    { role: "user", content: prompt }
+                ],
+                // إجبار النموذج على الرد بصيغة JSON
+                response_format: { type: "json_object" },
+                temperature: 0.7
             })
         });
 
         const data = await response.json();
-
-        // فحص هيكل الاستجابة بدقة
-        if (data.candidates && data.candidates[0].content && data.candidates[0].content.parts) {
-            let aiText = data.candidates[0].content.parts[0].text;
-            
-            // محاولة تنظيف النص إذا كان النموذج أرسل JSON داخل بلوك كود
-            const jsonMatch = aiText.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-                aiText = jsonMatch[0];
-            }
-
-            try {
-                const parsedData = JSON.parse(aiText);
-                return res.status(200).json(parsedData);
-            } catch (parseError) {
-                // إذا فشل في تحويله لـ JSON، نرسله كنص عادي داخل كائن
-                return res.status(200).json({ 
-                    type: "religious", 
-                    religious_data: { 
-                        title: "نتيجة الاستنباط", 
-                        perspectives: [{name: "تحليل عام", ruling: "مباح", text: aiText, colorType: "حلال"}],
-                        preferred: {opinion: "يرجى مراجعة النص المذكور", justification: "الرد لم يكن بصيغة JSON", evidence: "عام"}
-                    } 
-                });
-            }
+        
+        if (data.choices && data.choices[0].message.content) {
+            const aiResponse = JSON.parse(data.choices[0].message.content);
+            return res.status(200).json(aiResponse);
         } else {
-            console.error("Gemini API Error details:", JSON.stringify(data));
-            return res.status(500).json({ error: "لم يتم استلام رد صحيح من جوجل" });
+            throw new Error("Invalid response from Groq");
         }
     } catch (error) {
-        console.error("Critical Server Error:", error);
-        return res.status(500).json({ error: "حدث خطأ داخلي في الخادم" });
+        console.error("Groq Error:", error);
+        res.status(500).json({ error: "فشل الاستنباط عبر محرك Groq" });
     }
 }
